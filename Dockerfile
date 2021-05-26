@@ -65,8 +65,8 @@ RUN curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash - \
   sudo apt-get install -y \
     nodejs \
     yarn \
-&& apt-get clean \
-&& rm -rf /var/lib/apt/lists/* \
+&& sudo apt-get clean \
+&& sudo rm -rf /var/lib/apt/lists/* \
 && git clone https://github.com/rbenv/rbenv.git ~/.rbenv \
 && echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc \
 && export PATH="$HOME/.rbenv/bin:$PATH" \
