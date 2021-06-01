@@ -8,6 +8,8 @@ ENV RUNNER_LABELS ""
 ENV ADDITIONAL_PACKAGES ""
 ENV DOCKER_VERSION "20.10.6"
 ENV DOCKER_HOST ""
+ENV YQ_VERSION "4.9.3"
+ENV YQ_BINARY "yq_linux_amd64"
 
 RUN apt-get update \
     && DEBIAN_FRONTEND=noninteractive \
@@ -59,17 +61,17 @@ RUN curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
 # Install Ruby, Rake, Node and Yarn for Idean build tooling
 RUN curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash - \
 && curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add - \
-&& sudo apt-key add --keyserver keyserver.ubuntu.com --recv-keys CC86BB64 \
 && echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list \
-&& echo "deb http://ppa.launchpad.net/rmescandon/yq/ubuntu eoan main" | sudo tee /etc/apt/sources.list.d/yq.list \
 && sudo apt-get update \
 && DEBIAN_FRONTEND=noninteractive \
   sudo apt-get install -y \
     nodejs \
     yarn \
-    yq \
 && sudo apt-get clean \
 && sudo rm -rf /var/lib/apt/lists/* \
+&& sudo wget https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/${YQ_BINARY} -O /usr/bin/yq \
+&& sudo chown github:github /usr/bin/yq \
+&& sudo chmod 755 /usr/bin/yq \
 && git clone https://github.com/rbenv/rbenv.git ~/.rbenv \
 && echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc \
 && export PATH="$HOME/.rbenv/bin:$PATH" \
