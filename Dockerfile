@@ -59,9 +59,9 @@ RUN curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
 # Install Ruby, Rake, Node and Yarn for Idean build tooling
 RUN curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash - \
 && curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add - \
+&& sudo apt-key add --keyserver keyserver.ubuntu.com --recv-keys CC86BB64 \
 && echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list \
-&& sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys CC86BB64 \
-&& sudo add-apt-repository ppa:rmescandon/yq \
+&& echo "deb http://ppa.launchpad.net/rmescandon/yq/ubuntu eoan main" | sudo tee /etc/apt/sources.list.d/yq.list \
 && sudo apt-get update \
 && DEBIAN_FRONTEND=noninteractive \
   sudo apt-get install -y \
