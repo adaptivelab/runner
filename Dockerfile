@@ -18,6 +18,7 @@ RUN apt-get update \
         sudo \
         git \
         jq \
+        wget \
         unzip \
         gnupg2 \
         gcc \
